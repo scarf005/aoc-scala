@@ -1,32 +1,26 @@
 package day2
 
 import scala.util.chaining.*
-import io.Source.fromFile
-import day2.Day2.*
+import scala.io.Source.fromFile
+import scala.io.BufferedSource
 
 // The hell is a feet
 // we use the metric system
 // here thus the feet is redefined in meters
 final case class Box(l: Int, w: Int, h: Int):
-  def sides: Array[Int] = Array(l * w, w * h, h * l).map(_ * 2)
-  def dimensions = Array(l, w, h)
+  def sides = List(l * w, w * h, h * l).map(_ * 2)
+  def dimensions = List(l, w, h)
 
 object Box:
   def parse(s: String): Box = s.split("x").map(_.toInt) match
     case Array(l, w, h) => Box(l, w, h)
 
-object Day2:
-  def part1(input: Box): Int =
-    val sides = input.pipe(_.sides)
-    val smallest = sides.min
+/** surface area of the box + the area of the smallest side */
+def part1(input: Box): Int = input.sides.sum + input.sides.min / 2
 
-    sides.sum + smallest / 2
-
-  def part2(input: Box): Int =
-    val wrap = input.dimensions.sorted.take(2).sum * 2
-    val bow = input.dimensions.product
-
-    wrap + bow
+/** perimeter of the smallest face + volume of the box */
+def part2(input: Box): Int =
+  (input.dimensions.sorted.take(2).sum * 2) + input.dimensions.product
 
 @main def main() =
   val input = fromFile(".cache/02.txt").getLines.map(Box.parse).toArray

@@ -1,5 +1,5 @@
 import munit.FunSuite
-import day2.Day2.*
+import day2.{part1, part2}
 import day2.Box.parse
 
 class Day2Tests extends FunSuite:

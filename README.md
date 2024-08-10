@@ -11,8 +11,14 @@ uses:
 $ scala-cli setup-ide .
 
 # run the code
-$ scala-cli run ${year}/day${N}.scala
+$ scala-cli run project.scala . --main-class day${N}.main
 
 # run tests
 $ scala-cli test .
 ```
+
+## Images
+
+| 2015 Day6 Part 1 | 2015 Day6 Part 2 |
+| :-: | :-: |
+| ![2015 Day6 Part 1](img/2015/day6.part1.webp) | ![2015 Day6 Part 2](./img/2015/day6.part2.webp) |

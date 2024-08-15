@@ -109,8 +109,7 @@ def part2(xs: Iterable[Instruction]) =
 
   val input = fromFile(".cache/06.txt")
     .getLines()
-    .map(instruction.parseAll)
-    .collect { case Right(value) => value }
+    .flatMap(instruction.parseAll)
     .toVector
 
   Vector(("part1", part1), ("part2", part2)).foreach { (name, f) =>

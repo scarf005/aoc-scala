@@ -4,6 +4,7 @@ import scala.collection.mutable.HashMap
 import scala.io.Source.fromFile
 import scala.util.chaining.*
 import utils.uint.*
+import utils.*
 
 type Wire = String
 type Signal = UInt16
@@ -43,10 +44,7 @@ object Parser {
     oneOf(List(connection, and, or, lshift, rshift, not).map(_.backtrack))
 
   def parseToMap(input: Iterable[String]) =
-    input
-      .map(ops.parseAll)
-      .collect { case Right((expr, to)) => to -> expr }
-      .toMap
+    input.flatMap(ops.parseAll).map { (expr, to) => to -> expr }.toMap
 }
 
 def evaluate(wires: Map[Wire, Expr], expr: Expr): Signal =

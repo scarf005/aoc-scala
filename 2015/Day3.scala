@@ -3,7 +3,7 @@ package day3
 import scala.io.Source.fromFile
 import scala.collection.mutable.HashSet
 
-import util.Point
+import utils.Point
 
 def parse(c: Char) = c match
   case '^' => Point(x = 0, y = 1)

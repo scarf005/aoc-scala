@@ -2,7 +2,7 @@ package day6
 import scala.util.chaining.*
 import scala.io.Source.fromFile
 
-import util.*
+import utils.*
 import java.awt.image.BufferedImage
 
 import cats.parse.Parser

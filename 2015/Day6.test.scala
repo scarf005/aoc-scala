@@ -1,6 +1,6 @@
 import munit.FunSuite
 import day6.*
-import util.Point
+import utils.Point
 
 class Day6Tests extends FunSuite:
   test("action"):

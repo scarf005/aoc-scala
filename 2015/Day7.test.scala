@@ -1,43 +1,58 @@
 import munit.FunSuite
 import day7.*
-import scala.collection.mutable.HashMap
 import utils.uint.*
 import scala.util.chaining.*
 
 class Day7Tests extends FunSuite:
-  test("Parser"):
-    import Parser.*
+  import Parser.*
 
-    assertEquals(parse(number, "123").get, UInt16(123))
-    assertEquals(parse(signal, "123").get, Expr.Emit(UInt16(123)))
-    assertEquals(parse(wire, "abc").get, Expr.Var("abc"))
+  test("atoms"):
+    assertEquals(number.parse("123"), Right("", UInt16(123)))
+    assertEquals(signal.parse("123"), Right("", Expr.Emit(UInt16(123))))
+    assertEquals(wire.parse("abc"), Right("", Expr.Var("abc")))
 
+  test("connection"):
     assertEquals(
-      parse(connection, "123 -> abc").get,
-      "abc" -> Expr.Emit(UInt16(123)),
+      connection.parse("abc -> def"),
+      Right("", Expr.Var("abc") -> "def"),
     )
     assertEquals(
-      parse(and, "abc AND def -> ghi").get,
-      "ghi" -> Expr.And(Expr.Var("abc"), Expr.Var("def")),
-    )
-    assertEquals(
-      parse(or, "abc OR def -> ghi").get,
-      "ghi" -> Expr.Or(Expr.Var("abc"), Expr.Var("def")),
-    )
-    assertEquals(
-      parse(lshift, "abc LSHIFT 2 -> def").get,
-      "def" -> Expr.LShift(Expr.Var("abc"), UInt16(2)),
-    )
-    assertEquals(
-      parse(rshift, "abc RSHIFT 2 -> def").get,
-      "def" -> Expr.RShift(Expr.Var("abc"), UInt16(2)),
-    )
-    assertEquals(
-      parse(not, "NOT abc -> def").get,
-      "def" -> Expr.Not(Expr.Var("abc")),
+      connection.parse("123 -> abc"),
+      Right("", Expr.Emit(UInt16(123)) -> "abc"),
     )
 
-  test("Part 1"):
+  test("ops"):
+    assertEquals(
+      ops.parse("123 -> abc"),
+      Right("", Expr.Emit(UInt16(123)) -> "abc"),
+    )
+    assertEquals(
+      ops.parse("123 AND abc -> def"),
+      Right("", Expr.And(Expr.Emit(UInt16(123)), Expr.Var("abc")) -> "def"),
+    )
+    // x AND y -> d
+    assertEquals(
+      ops.parse("x AND y -> d"),
+      Right("", Expr.And(Expr.Var("x"), Expr.Var("y")) -> "d"),
+    )
+    assertEquals(
+      ops.parse("123 OR abc -> def"),
+      Right("", Expr.Or(Expr.Emit(UInt16(123)), Expr.Var("abc")) -> "def"),
+    )
+    assertEquals(
+      ops.parse("123 LSHIFT 2 -> def"),
+      Right("", Expr.LShift(Expr.Emit(UInt16(123)), UInt16(2)) -> "def"),
+    )
+    assertEquals(
+      ops.parse("123 RSHIFT 2 -> def"),
+      Right("", Expr.RShift(Expr.Emit(UInt16(123)), UInt16(2)) -> "def"),
+    )
+    assertEquals(
+      ops.parse("NOT abc -> def"),
+      Right("", Expr.Not(Expr.Var("abc")) -> "def"),
+    )
+
+  test("parseToMap"):
     val input =
       """123 -> x
         |456 -> y
@@ -47,17 +62,16 @@ class Day7Tests extends FunSuite:
         |y RSHIFT 2 -> g
         |NOT x -> h
         |NOT y -> i""".stripMargin.linesIterator.toVector
-        .pipe(Parser.parseAll)
 
-    Vector(
-      "d" -> UInt16(72),
-      "e" -> UInt16(507),
-      "f" -> UInt16(492),
-      "g" -> UInt16(114),
-      "h" -> UInt16(65412),
-      "i" -> UInt16(65079),
-      "x" -> UInt16(123),
-      "y" -> UInt16(456),
-    ).foreach { (name, expected) =>
-      assertEquals(solve(input, name), expected)
-    }
+    val expected = Map(
+      "x" -> Expr.Emit(UInt16(123)),
+      "y" -> Expr.Emit(UInt16(456)),
+      "d" -> Expr.And(Expr.Var("x"), Expr.Var("y")),
+      "e" -> Expr.Or(Expr.Var("x"), Expr.Var("y")),
+      "f" -> Expr.LShift(Expr.Var("x"), UInt16(2)),
+      "g" -> Expr.RShift(Expr.Var("y"), UInt16(2)),
+      "h" -> Expr.Not(Expr.Var("x")),
+      "i" -> Expr.Not(Expr.Var("y")),
+    )
+
+    assertEquals(parseToMap(input), expected)

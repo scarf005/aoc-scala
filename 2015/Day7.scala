@@ -1,6 +1,5 @@
 package day7
 
-import scala.util.parsing.combinator.RegexParsers
 import scala.collection.mutable.HashMap
 import scala.io.Source.fromFile
 import scala.util.chaining.*
@@ -18,42 +17,39 @@ enum Expr:
   case RShift(wire: Expr, by: UInt16)
   case Not(from: Expr)
 
-object Parser extends RegexParsers {
-  def number = raw"\d+".r ^^ (x => UInt16(x.toInt))
-  def signal = raw"\d+".r ^^ (x => Expr.Emit(UInt16(x.toInt)))
-  def string = raw"[a-z]+".r
-  def wire = string ^^ (x => Expr.Var(x))
-  def value = signal | wire
+object Parser {
+  import cats.parse.Parser
+  import cats.parse.Parser.*
+  import cats.parse.Rfc5234.*
 
-  def to = "->" ~ string ^^ { case _ ~ w => w }
+  def keyword(s: String): Parser[Unit] = string(s).surroundedBy(sp.rep0)
 
-  def connection = value ~ to ^^ { case from ~ to => (to -> from) }
+  val number: Parser[UInt16] = digit.rep.string.map(x => UInt16(x.toInt))
+  val signal: Parser[Expr] = number.map(Expr.Emit.apply)
+  val literal: Parser[String] = charIn('a' to 'z').rep.string
+  val wire: Parser[Expr] = literal.map(Expr.Var.apply)
+  val value: Parser[Expr] = signal | wire
 
-  def and = value ~ "AND" ~ value ~ to
-    ^^ { case left ~ _ ~ right ~ to => (to -> Expr.And(left, right)) }
+  val to: Parser[String] = keyword("->") *> literal
+  val connection = value ~ to
+  val and = ((value <* keyword("AND")) ~ value).map(Expr.And.apply) ~ to
+  val or = ((value <* keyword("OR")) ~ value).map(Expr.Or.apply) ~ to
+  val lshift =
+    ((value <* keyword("LSHIFT")) ~ number).map(Expr.LShift.apply) ~ to
+  val rshift =
+    ((value <* keyword("RSHIFT")) ~ number).map(Expr.RShift.apply) ~ to
+  val not = (keyword("NOT") *> value).map(Expr.Not.apply) ~ to
+  val ops =
+    oneOf(List(connection, and, or, lshift, rshift, not).map(_.backtrack))
 
-  def or = value ~ "OR" ~ value ~ to
-    ^^ { case left ~ _ ~ right ~ to => (to -> Expr.Or(left, right)) }
-
-  def lshift = value ~ "LSHIFT" ~ number ~ to
-    ^^ { case value ~ _ ~ by ~ to => (to -> Expr.LShift(value, by)) }
-
-  def rshift = value ~ "RSHIFT" ~ number ~ to
-    ^^ { case value ~ _ ~ by ~ to => (to -> Expr.RShift(value, by)) }
-
-  def not = "NOT" ~ value ~ to
-    ^^ { case _ ~ value ~ to => to -> Expr.Not(value) }
-
-  def ops = connection | and | or | lshift | rshift | not
-
-  def parseAll(input: Iterable[String]) =
+  def parseToMap(input: Iterable[String]) =
     input
-      .map(parse(ops, _))
-      .collect { case Success(result, _) => result }
+      .map(ops.parseAll)
+      .collect { case Right((expr, to)) => to -> expr }
       .toMap
 }
 
-def evaluate(wires: Map[Wire, Expr], expr: Expr) =
+def evaluate(wires: Map[Wire, Expr], expr: Expr): Signal =
   val mutWires = scala.collection.mutable.Map() ++ wires
 
   def eval(expr: Expr): Signal =
@@ -77,7 +73,7 @@ def solve(wires: Map[Wire, Expr], name: Wire) =
 
 @main def main() =
   val input =
-    fromFile(".cache/07.txt").getLines.toVector.sorted.pipe(Parser.parseAll)
+    fromFile(".cache/07.txt").getLines.toVector.pipe(Parser.parseToMap)
 
   val a = solve(input, "a")
   println(s"a = $a")
@@ -85,3 +81,6 @@ def solve(wires: Map[Wire, Expr], name: Wire) =
   val newInput = input.updated("b", Expr.Emit(a))
   val newA = evaluate(newInput, Expr.Var("a"))
   println(s"a (part 2) = $newA")
+
+  assert(a == UInt16(16076))
+  assert(newA == UInt16(2797))

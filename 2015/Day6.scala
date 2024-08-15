@@ -1,12 +1,11 @@
 package day6
-
 import scala.util.chaining.*
 import scala.io.Source.fromFile
-import scala.util.parsing.combinator.*
 
-import util.{Point, Size}
+import util.*
 import java.awt.image.BufferedImage
-import cats.instances.boolean
+
+import cats.parse.Parser
 
 enum Action:
   case On, Off, Toggle
@@ -50,18 +49,25 @@ class Grid[T](
 
     image
 
-/** parse {turn {on|off}|toggle} {x1,y1} through {x2,y2} */
-object Parser extends RegexParsers:
-  def number = raw"\d+".r ^^ (_.toInt)
-  def coord = number ~ "," ~ number ^^ { case x ~ _ ~ y => Point(x, y) }
-  def action = "turn on|turn off|toggle".r ^^ {
-    case "turn on"  => Action.On
-    case "turn off" => Action.Off
-    case "toggle"   => Action.Toggle
-  }
-  def instruction = action ~ coord ~ "through" ~ coord ^^ {
-    case action ~ p1 ~ _ ~ p2 => Instruction(action, Selection(p1, p2))
-  }
+import cats.parse.Parser.*
+import cats.parse.Rfc5234.{digit, sp}
+
+val number: Parser[Int] =
+  digit.rep.string.map(_.toInt)
+
+val coord: Parser[Point] =
+  (number <* char(',')) ~ number map Point.apply
+
+val action: Parser[Action] =
+  string("turn on").as(Action.On)
+    | string("turn off").as(Action.Off)
+    | string("toggle").as(Action.Toggle)
+
+val selection: Parser[Selection] =
+  (coord <* string("through").surroundedBy(sp.rep0)) ~ coord map Selection.apply
+
+val instruction: Parser[Instruction] =
+  action ~ selection.surroundedBy(sp.rep0) map Instruction.apply
 
 def part1(xs: Iterable[Instruction]) =
   Grid[Boolean](
@@ -103,7 +109,8 @@ def part2(xs: Iterable[Instruction]) =
 
   val input = fromFile(".cache/06.txt")
     .getLines()
-    .map(Parser.parse(Parser.instruction, _).get)
+    .map(instruction.parseAll)
+    .collect { case Right(value) => value }
     .toVector
 
   Vector(("part1", part1), ("part2", part2)).foreach { (name, f) =>

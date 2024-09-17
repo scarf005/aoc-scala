@@ -1,4 +1,5 @@
 //> using toolkit default
+//> using option -feature -deprecation
 
 //> using dep "com.sksamuel.scrimage:scrimage-core:4.2.0"
 //> using dep "com.sksamuel.scrimage:scrimage-webp:4.2.0"

@@ -1,7 +1,6 @@
 package day13
 
-import scala.io.Source.fromFile
-import scala.util.chaining.*
+import prelude.*
 
 type Score = Map[String, Map[String, Int]]
 

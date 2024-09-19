@@ -1,6 +1,6 @@
 package day14
 
-import scala.io.Source.fromFile
+import prelude.*
 
 case class Deer(speed: Int, flyTime: Int, restTime: Int):
   def flightDistance(time: Int) =

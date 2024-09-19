@@ -1,8 +1,7 @@
 package day7
 
 import scala.collection.mutable.HashMap
-import scala.io.Source.fromFile
-import scala.util.chaining.*
+import prelude.*
 import utils.uint.*
 import utils.*
 

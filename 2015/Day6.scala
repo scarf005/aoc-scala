@@ -1,8 +1,6 @@
 package day6
 
-import scala.util.chaining.*
-import scala.io.Source.fromFile
-
+import prelude.*
 import utils.*
 import java.awt.image.BufferedImage
 

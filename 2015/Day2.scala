@@ -1,8 +1,8 @@
 package day2
 
-import scala.util.chaining.*
-import scala.io.Source.fromFile
 import scala.io.BufferedSource
+
+import prelude.*
 
 // The hell is a feet
 // we use the metric system

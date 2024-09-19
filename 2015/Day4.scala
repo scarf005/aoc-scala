@@ -1,7 +1,6 @@
 package day4
 
-import scala.util.chaining.*
-import scala.io.Source.fromFile
+import prelude.*
 import java.security.MessageDigest
 import cats.effect.IO
 import cats.effect.unsafe.implicits.global

@@ -1,7 +1,6 @@
 package day12
 
-import scala.io.Source.fromFile
-import scala.util.chaining.*
+import prelude.*
 
 /** recursively sum all numbers in a JSON object */
 def part1(json: ujson.Value): Int = json match

@@ -1,7 +1,6 @@
 package day9
 
-import scala.io.Source.fromFile
-import scala.util.chaining.*
+import prelude.*
 
 import cats.parse.Parser
 import cats.parse.Parser.*

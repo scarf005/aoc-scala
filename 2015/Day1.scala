@@ -1,6 +1,6 @@
 package day1
 
-import scala.util.chaining.*
+import prelude.*
 import io.Source.fromFile
 
 def parse(s: String) = s.map { case '(' => 1; case ')' => -1 }

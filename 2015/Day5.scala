@@ -1,7 +1,6 @@
 package day5
 
-import scala.util.chaining.*
-import scala.io.Source.fromFile
+import prelude.*
 import scala.util.matching.Regex
 
 val naughtyRegex = "ab|cd|pq|xy".r

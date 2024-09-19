@@ -1,6 +1,6 @@
 package day10
 
-import scala.io.Source.fromFile
+import prelude.*
 
 val groupNums = raw"(.)\1*".r
 

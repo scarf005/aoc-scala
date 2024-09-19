@@ -1,8 +1,8 @@
 package day3
 
-import scala.io.Source.fromFile
 import scala.collection.mutable.HashSet
 
+import prelude.*
 import utils.Point
 
 def parse(c: Char) = c match

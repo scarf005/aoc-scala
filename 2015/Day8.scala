@@ -1,7 +1,6 @@
 package day8
 
-import scala.io.Source.fromFile
-import scala.util.chaining.*
+import prelude.*
 import scala.annotation.tailrec
 
 extension (s: String)

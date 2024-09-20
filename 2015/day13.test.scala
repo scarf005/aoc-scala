@@ -1,6 +1,6 @@
-import scala.util.chaining.*
 import munit.FunSuite
 import day13.*
+import prelude.*
 
 class Day13Tests extends FunSuite:
   test("Part 1"):

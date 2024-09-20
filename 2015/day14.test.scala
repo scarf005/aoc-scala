@@ -1,4 +1,3 @@
-import scala.util.chaining.*
 import munit.FunSuite
 import day14.*
 

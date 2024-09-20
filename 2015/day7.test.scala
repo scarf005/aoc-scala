@@ -1,7 +1,6 @@
 import munit.FunSuite
 import day7.*
 import utils.uint.*
-import scala.util.chaining.*
 
 class Day7Tests extends FunSuite:
   import Parser.*

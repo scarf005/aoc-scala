@@ -11,6 +11,6 @@ def part1(input: String) = input.pipe(parse).sum
 def part2(input: String) = input.pipe(parse).scanLeft(0) { _ + _ }.indexOf(-1)
 
 @main def main() =
-  val input = fromFile(".cache/01.txt").mkString
+  val input = fromFile(".cache/2015/01.txt").mkString
   println(part1(input))
   println(part2(input))

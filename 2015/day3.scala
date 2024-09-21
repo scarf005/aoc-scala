@@ -32,7 +32,7 @@ def part2(input: String) =
   visited.size
 
 @main def main() =
-  val input = fromFile(".cache/03.txt").mkString
+  val input = fromFile(".cache/2015/03.txt").mkString
 
   println(part1(input))
   println(part2(input))

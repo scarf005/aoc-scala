@@ -49,7 +49,7 @@ def part2(scores: Score) =
 
 @main def main() =
   val scores: Score =
-    fromFile(".cache/13.txt").getLines.toSeq.pipe(parseToScore)
+    fromFile(".cache/2015/13.txt").getLines.toSeq.pipe(parseToScore)
 
   println(part1(scores))
   println(part2(scores))

@@ -70,7 +70,7 @@ def solve(wires: Map[Wire, Expr], name: Wire) =
 
 @main def main() =
   val input =
-    fromFile(".cache/07.txt").getLines.toVector.pipe(Parser.parseToMap)
+    fromFile(".cache/2015/07.txt").getLines.toVector.pipe(Parser.parseToMap)
 
   val a = solve(input, "a")
   println(s"a = $a")

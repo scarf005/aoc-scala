@@ -31,7 +31,7 @@ def part1 = solve(n = 5)
 def part2 = solve(n = 6)
 
 @main def main() =
-  val input = fromFile(".cache/04.txt").mkString.trim
+  val input = fromFile(".cache/2015/04.txt").mkString.trim
 
   println(part1(input))
   println(part2(input))

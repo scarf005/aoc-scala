@@ -25,7 +25,7 @@ def solution(s: String): String =
   it.find { x => secure(x.mkString) }.get.mkString
 
 @main def main() =
-  val input = fromFile(".cache/11.txt").mkString.trim
+  val input = fromFile(".cache/2015/11.txt").mkString.trim
 
   val part1 = solution(input)
   println(part1)

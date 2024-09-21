@@ -1,4 +1,4 @@
-package day15
+package y2015.day15
 
 import prelude.*
 
@@ -46,7 +46,6 @@ def inc(xs: List[Int]): List[Int] = xs match
   case x :: xs if x == total => 0 :: inc(xs)
   case x :: xs               => (x + 1) :: xs
 
-
 def combos =
   val init = List(0, 0)
 
@@ -55,42 +54,41 @@ def combos =
   // take
   // val comboList: LazyList[List[Int]] = LazyList.iterate()
 
-
 case class Ingredients(ingredients: Map[String, Ingredient]) {}
 
-  // def inc(xs: Option[List[Int]]): Option[List[Int]] = xs match
-  //   case None                         => None
-  //   case Some(Nil)                    => None
-  //   case Some(x :: Nil) if x == total => None
-  //   // case x :: xs if x == total  => x :: inc(xs)
-  //   // case x :: xs                => (x + 1) :: xs
-  //   case Some(x :: xs) if x == total => inc(Some(xs)).map(0 :: _)
-  //   case Some(x :: xs)               => Some((x + 1) :: xs)
+// def inc(xs: Option[List[Int]]): Option[List[Int]] = xs match
+//   case None                         => None
+//   case Some(Nil)                    => None
+//   case Some(x :: Nil) if x == total => None
+//   // case x :: xs if x == total  => x :: inc(xs)
+//   // case x :: xs                => (x + 1) :: xs
+//   case Some(x :: xs) if x == total => inc(Some(xs)).map(0 :: _)
+//   case Some(x :: xs)               => Some((x + 1) :: xs)
 
-  // def combos =
-  //   LazyList
-  //     .iterate(
-  //       Some(
-  //         // List.fill(ingredients.size)(0)
-  //         List(0, 0, 0),
-  //       ),
-  //     )(inc)
-  //     // .filter(x => x match {
-  //     //   case None => false
-  //     //   case Some(xs) => xs.sum == total
-  //     // })
-  //     .take(10)
-  //     // .takeWhile(_.nonEmpty)
-  //     // .map(_.get)
-  //     .toList
+// def combos =
+//   LazyList
+//     .iterate(
+//       Some(
+//         // List.fill(ingredients.size)(0)
+//         List(0, 0, 0),
+//       ),
+//     )(inc)
+//     // .filter(x => x match {
+//     //   case None => false
+//     //   case Some(xs) => xs.sum == total
+//     // })
+//     .take(10)
+//     // .takeWhile(_.nonEmpty)
+//     // .map(_.get)
+//     .toList
 
-  // def recipes =
-  //   combos.map { combo =>
-  //     ingredients.keys
-  //       .zip(combo)
-  //       .map { (name, n) => ingredients(name) * n }
-  //       .reduce { _ + _ }
-  //   }
+// def recipes =
+//   combos.map { combo =>
+//     ingredients.keys
+//       .zip(combo)
+//       .map { (name, n) => ingredients(name) * n }
+//       .reduce { _ + _ }
+//   }
 
 val ingredients = Map(
   "Sprinkles" -> Ingredient(

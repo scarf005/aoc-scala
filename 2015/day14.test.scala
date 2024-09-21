@@ -1,5 +1,5 @@
 import munit.FunSuite
-import day14.*
+import y2015.day14.*
 
 class Day14Tests extends FunSuite:
   val deers = Map(

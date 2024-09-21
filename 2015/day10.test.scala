@@ -1,5 +1,5 @@
 import munit.FunSuite
-import day10.*
+import y2015.day10.*
 
 class Day10Tests extends FunSuite:
   test("Part 1"):

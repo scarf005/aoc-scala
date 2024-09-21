@@ -1,6 +1,6 @@
 import munit.FunSuite
-import day2.{part1, part2}
-import day2.Box.parse
+import y2015.day2.{part1, part2}
+import y2015.day2.Box.parse
 
 class Day2Tests extends FunSuite:
   val a = parse("2x3x4")

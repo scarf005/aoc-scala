@@ -1,5 +1,5 @@
 import munit.FunSuite
-import day8.*
+import y2015.day8.*
 
 class Day8Tests extends FunSuite:
   val xs = Seq(

@@ -1,9 +1,9 @@
 import munit.FunSuite
-import day12.*
+import y2015.day12.*
 
 class Day12Tests extends FunSuite:
-  def check(fn: ujson.Value => Int, name: String)(xs: Seq[(String, Int)])(implicit
-    loc: munit.Location,
+  def check(fn: ujson.Value => Int, name: String)(xs: Seq[(String, Int)])(
+    implicit loc: munit.Location,
   ): Unit =
     xs.foreach { (input, expected) =>
       test(s"$name: $input -> $expected"):

@@ -1,4 +1,4 @@
-package day5
+package y2015.day5
 
 import prelude.*
 import scala.util.matching.Regex

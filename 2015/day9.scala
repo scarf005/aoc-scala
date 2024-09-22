@@ -8,7 +8,6 @@ import cats.parse.Rfc5234.alpha
 
 import y2015.day6.number
 import y2015.day7.Parser.keyword
-import utils.either2Iterable
 
 val city: Parser[String] = alpha.rep.string
 

@@ -1,8 +1,21 @@
 package prelude
 
 import scala.io.Source.fromFile
+import scala.language.implicitConversions
 
 export scala.io.Source.fromFile
+
+/** flatMap [[scala.Either]] */
+implicit def either2Iterable[A](e: Either[?, A]): Iterable[A] =
+  e.toOption.toSeq
+
+extension [A](a: A)
+  /** more conveient syntax sugar for lifting partial functions to
+    * [[scala.Option]]
+    */
+  inline def lift[B](f: PartialFunction[A, B]) = f.lift(a)
+
+extension (a: Boolean) inline def toInt = if a then 1 else 0
 
 extension [A](self: A)
   /** Applies `f` to the value for its side effects, and returns the original

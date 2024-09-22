@@ -4,12 +4,10 @@ import prelude.*
 import prelude.parser.*
 
 import cats.parse.Parser
-import cats.parse.Parser.*
-import cats.parse.Rfc5234.alpha
 
 import y2015.day7.Parser.keyword
 
-val city: Parser[String] = alpha.rep.string
+val city = alphas
 
 val path = for
   from <- city <* keyword("to")

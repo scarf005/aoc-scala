@@ -9,14 +9,11 @@ import cats.parse.Rfc5234.{digit, alpha}
 
 type Clue = Map[String, Int]
 
-val ident: Parser[String] =
-  alpha.rep.string
-
 val id: Parser[Int] =
   string("Sue ") *> number <* string(": ")
 
 val clue: Parser[(String, Int)] =
-  (ident <* string(": ")) ~ number
+  (alphas <* string(": ")) ~ number
 
 val clues: Parser[Clue] =
   clue.repSep(string(", ")).map(_.toList.toMap)

@@ -6,7 +6,7 @@ class Day7Tests extends FunSuite:
   import Parser.*
 
   test("atoms"):
-    assertEquals(number.parse("123"), Right("", UInt16(123)))
+    assertEquals(u16.parse("123"), Right("", UInt16(123)))
     assertEquals(signal.parse("123"), Right("", Expr.Emit(UInt16(123))))
     assertEquals(wire.parse("abc"), Right("", Expr.Var("abc")))
 

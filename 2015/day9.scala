@@ -1,12 +1,12 @@
 package y2015.day9
 
 import prelude.*
+import prelude.parser.*
 
 import cats.parse.Parser
 import cats.parse.Parser.*
 import cats.parse.Rfc5234.alpha
 
-import y2015.day6.number
 import y2015.day7.Parser.keyword
 
 val city: Parser[String] = alpha.rep.string

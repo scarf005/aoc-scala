@@ -1,15 +1,13 @@
 package y2015.day16
 
 import prelude.*
+import prelude.parser.*
 
 import cats.parse.Parser
 import cats.parse.Parser.*
 import cats.parse.Rfc5234.{digit, alpha}
 
 type Clue = Map[String, Int]
-
-val number: Parser[Int] =
-  digit.rep.string.map(_.toInt)
 
 val ident: Parser[String] =
   alpha.rep.string

@@ -2,6 +2,7 @@ package y2015.day7
 
 import scala.collection.mutable.HashMap
 import prelude.*
+import prelude.parser.*
 import utils.uint.*
 import utils.*
 
@@ -24,8 +25,8 @@ object Parser {
 
   def keyword(s: String): Parser[Unit] = string(s).surroundedBy(sp.rep0)
 
-  val number: Parser[UInt16] = digit.rep.string.map(x => UInt16(x.toInt))
-  val signal: Parser[Expr] = number.map(Expr.Emit.apply)
+  val u16: Parser[UInt16] = number.map(UInt16.apply)
+  val signal: Parser[Expr] = u16.map(Expr.Emit.apply)
   val literal: Parser[String] = charIn('a' to 'z').rep.string
   val wire: Parser[Expr] = literal.map(Expr.Var.apply)
   val value: Parser[Expr] = signal | wire
@@ -35,9 +36,9 @@ object Parser {
   val and = ((value <* keyword("AND")) ~ value).map(Expr.And.apply) ~ to
   val or = ((value <* keyword("OR")) ~ value).map(Expr.Or.apply) ~ to
   val lshift =
-    ((value <* keyword("LSHIFT")) ~ number).map(Expr.LShift.apply) ~ to
+    ((value <* keyword("LSHIFT")) ~ u16).map(Expr.LShift.apply) ~ to
   val rshift =
-    ((value <* keyword("RSHIFT")) ~ number).map(Expr.RShift.apply) ~ to
+    ((value <* keyword("RSHIFT")) ~ u16).map(Expr.RShift.apply) ~ to
   val not = (keyword("NOT") *> value).map(Expr.Not.apply) ~ to
   val ops =
     oneOf(List(connection, and, or, lshift, rshift, not).map(_.backtrack))

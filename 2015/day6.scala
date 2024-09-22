@@ -1,6 +1,8 @@
 package y2015.day6
 
 import prelude.*
+import prelude.parser.*
+
 import utils.*
 import java.awt.image.BufferedImage
 
@@ -50,9 +52,6 @@ class Grid[T](
 
 import cats.parse.Parser.*
 import cats.parse.Rfc5234.{digit, sp}
-
-val number: Parser[Int] =
-  digit.rep.string.map(_.toInt)
 
 val coord: Parser[Point] =
   (number <* char(',')) ~ number map Point.apply

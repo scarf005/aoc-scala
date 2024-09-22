@@ -2,15 +2,6 @@ package y2015.day15
 
 import prelude.*
 
-def zipAllByKey[K, A, B](
-  a: collection.Map[K, A],
-  b: collection.Map[K, B],
-): collection.Map[K, (A, B)] =
-  require(a.keySet == b.keySet)
-  a.keysIterator.map { key =>
-    key -> (a(key), b(key))
-  }.toMap
-
 case class Ingredient(
   capacity: Int,
   durability: Int,

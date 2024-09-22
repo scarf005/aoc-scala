@@ -17,6 +17,15 @@ extension [A](a: A)
 
 extension (a: Boolean) inline def toInt = if a then 1 else 0
 
+extension [A, B](x: (Option[A], Option[B]))
+  def bisequence: Option[(A, B)] = for a <- x._1; b <- x._2 yield (a, b)
+
+def zipAllByKey[K, A, B](a: Map[K, A], b: Map[K, B]): Map[K, (A, B)] =
+  a.keysIterator
+    .map { key => key -> (a.get(key), b.get(key)).bisequence }
+    .collect { case (k, Some(v)) => k -> v }
+    .toMap
+
 extension [A](self: A)
   /** Applies `f` to the value for its side effects, and returns the original
     * value.

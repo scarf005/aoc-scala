@@ -24,7 +24,7 @@ case class Ingredient(
     calories = calories * n,
   )
   def score =
-    Seq(capacity, durability, flavor, texture).map(_.max(0)).product
+    Vector(capacity, durability, flavor, texture).map(_.max(0)).product
 
 object Ingredients:
   def apply(ingredients: (String, Ingredient)*): Ingredients =

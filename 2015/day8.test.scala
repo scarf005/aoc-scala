@@ -2,7 +2,7 @@ import munit.FunSuite
 import y2015.day8.*
 
 class Day8Tests extends FunSuite:
-  val xs = Seq(
+  val xs = Vector(
     """""""" -> (2, 0),
     """"abc"""" -> (5, 3),
     """"aaa\"aaa"""" -> (10, 7),
@@ -20,7 +20,7 @@ class Day8Tests extends FunSuite:
   test("part1"):
     assertEquals(xs.map(_._1).map(part1).sum, 12)
 
-  val ys = Seq(
+  val ys = Vector(
     """""""" -> (2, 6),
     """"abc"""" -> (5, 9),
     """"aaa\"aaa"""" -> (10, 16),

@@ -34,22 +34,22 @@ def score(comb: Seq[String])(implicit scores: Score) =
     .sum
 
 def part1(scores: Score) =
-  val people = scores.keys.toSeq
-  val combination = people.permutationsCyclic.toSeq
+  val people = scores.keys.toVector
+  val combination = people.permutationsCyclic.toVector
 
   given Score = scores
   combination.map(score).max
 
 def part2(scores: Score) =
-  val people = scores.keys.toSeq :+ "Me"
-  val combination = people.permutationsCyclic.toSeq
+  val people = scores.keys.toVector :+ "Me"
+  val combination = people.permutationsCyclic.toVector
 
   given Score = scores
   combination.map(score).max
 
 @main def main() =
   val scores: Score =
-    fromFile(".cache/2015/13.txt").getLines.toSeq.pipe(parseToScore)
+    fromFile(".cache/2015/13.txt").getLines.toVector.pipe(parseToScore)
 
   println(part1(scores))
   println(part2(scores))

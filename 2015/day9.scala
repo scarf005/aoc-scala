@@ -24,8 +24,9 @@ yield Set(from, to) -> score
 
   val scores = input.toMap
   val places = scores.keys.flatten
-  def pathLen(path: Seq[String]) = path.sliding(2).map(_.toSet).map(scores).sum
-  val lengths = places.toSeq.permutations.map(pathLen).toSeq
+  def pathLen(path: Vector[String]) =
+    path.sliding(2).map(_.toSet).map(scores).sum
+  val lengths = places.toVector.permutations.map(pathLen).toVector
 
   println(s"part1 = ${lengths.min}")
   println(s"part2 = ${lengths.max}")

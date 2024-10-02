@@ -1,6 +1,6 @@
+package `2015`.day15
+
 import munit.FunSuite
-import `2015`.day15.*
-import prelude.*
 
 class Day15Tests extends FunSuite:
   val ingredients = Ingredients(

@@ -1,5 +1,6 @@
+package `2015`.day12
+
 import munit.FunSuite
-import `2015`.day12.*
 
 class Day12Tests extends FunSuite:
   def check(fn: ujson.Value => Int, name: String)(xs: Vector[(String, Int)])(

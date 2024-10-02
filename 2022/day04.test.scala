@@ -3,7 +3,6 @@ package `2022`.day04
 import prelude.*
 
 import munit.FunSuite
-import `2022`.day04.*
 
 class Tests extends FunSuite:
   test("range"):

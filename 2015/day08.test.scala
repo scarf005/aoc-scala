@@ -1,5 +1,6 @@
+package `2015`.day08
+
 import munit.FunSuite
-import `2015`.day08.*
 
 class Day8Tests extends FunSuite:
   val xs = Vector(

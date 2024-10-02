@@ -1,9 +1,6 @@
 package `2015`.day17
 
-import prelude.*
 import munit.FunSuite
-import `2015`.day17.*
-
 
 class Tests extends FunSuite:
   // given Logger = PrintLogger

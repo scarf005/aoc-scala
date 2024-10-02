@@ -1,5 +1,6 @@
+package `2015`.day06
+
 import munit.FunSuite
-import `2015`.day06.*
 import utils.Point
 
 class Day6Tests extends FunSuite:

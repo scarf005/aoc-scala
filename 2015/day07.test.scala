@@ -1,6 +1,7 @@
+package `2015`.day07
+
 import munit.FunSuite
-import `2015`.day07.*
-import utils.uint.*
+import utils.uint.UInt16
 
 class Day7Tests extends FunSuite:
   import Parser.*

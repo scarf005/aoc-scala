@@ -1,5 +1,6 @@
+package `2015`.day04
+
 import munit.FunSuite
-import `2015`.day04.{part1, part2}
 
 // Too slow
 @munit.IgnoreSuite

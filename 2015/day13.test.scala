@@ -1,6 +1,7 @@
-import munit.FunSuite
-import `2015`.day13.*
+package `2015`.day13
+
 import prelude.*
+import munit.FunSuite
 
 class Day13Tests extends FunSuite:
   test("Part 1"):

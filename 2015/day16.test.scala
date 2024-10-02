@@ -1,8 +1,6 @@
 package `2015`.day16
 
-import prelude.*
 import munit.FunSuite
-import `2015`.day16.*
 
 val auntRight = Aunt(1, Map("goldfish" -> 9, "cars" -> 0, "samoyeds" -> 9))
 val auntEmpty = Aunt(1, Map.empty)

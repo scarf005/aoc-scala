@@ -1,4 +1,4 @@
-package y2015.day3
+package `2015`.day03
 
 import scala.collection.mutable.HashSet
 

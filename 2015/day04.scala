@@ -1,4 +1,4 @@
-package y2015.day4
+package `2015`.day04
 
 import prelude.*
 import java.security.MessageDigest

@@ -1,4 +1,4 @@
-package y2015.day10
+package `2015`.day10
 
 import prelude.*
 

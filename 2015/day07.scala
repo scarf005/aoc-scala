@@ -1,4 +1,4 @@
-package y2015.day7
+package `2015`.day07
 
 import scala.collection.mutable.HashMap
 import prelude.*

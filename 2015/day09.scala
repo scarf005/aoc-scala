@@ -1,11 +1,11 @@
-package y2015.day9
+package `2015`.day09
 
 import prelude.*
 import prelude.parser.*
 
 import cats.parse.Parser
 
-import y2015.day7.Parser.keyword
+import `2015`.day07.Parser.keyword
 
 val city = alphas
 

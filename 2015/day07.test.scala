@@ -1,5 +1,5 @@
 import munit.FunSuite
-import y2015.day7.*
+import `2015`.day07.*
 import utils.uint.*
 
 class Day7Tests extends FunSuite:

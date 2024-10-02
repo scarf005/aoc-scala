@@ -1,4 +1,4 @@
-package y2015.day8
+package `2015`.day08
 
 import prelude.*
 import scala.annotation.tailrec

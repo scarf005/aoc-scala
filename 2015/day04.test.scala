@@ -1,5 +1,5 @@
 import munit.FunSuite
-import y2015.day4.{part1, part2}
+import `2015`.day04.{part1, part2}
 
 // Too slow
 @munit.IgnoreSuite

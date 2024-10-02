@@ -1,4 +1,4 @@
-package y2015.day2
+package `2015`.day02
 
 import scala.io.BufferedSource
 

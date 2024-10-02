@@ -5,8 +5,6 @@ import prelude.parser.*
 
 import cats.parse.Parser
 
-import `2015`.day07.Parser.keyword
-
 val city = alphas
 
 val path = for

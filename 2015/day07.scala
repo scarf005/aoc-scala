@@ -23,8 +23,6 @@ object Parser {
   import cats.parse.Parser.*
   import cats.parse.Rfc5234.*
 
-  def keyword(s: String): Parser[Unit] = string(s).surroundedBy(sp.rep0)
-
   val u16: Parser[UInt16] = number.map(UInt16.apply)
   val signal: Parser[Expr] = u16.map(Expr.Emit.apply)
   val literal: Parser[String] = charIn('a' to 'z').rep.string

@@ -52,7 +52,7 @@ def part2(xs: Iterable[Aunt]) =
   xs.find(_.matchRange(known)).get.id
 
 @main def main() =
-  val input = fromFile(".cache/2015/16.txt").getLines
+  val input = readInput(this).getLines
     .map(_.trim)
     .flatMap(aunt.parseAll)
     .toSeq

@@ -14,7 +14,7 @@ def solution(input: Vector[Long], group: Int) =
     .min
 
 @main def main() =
-  val input = fromFile(".cache/2015/24.txt").getLines.map(_.toLong).toVector
+  val input = readInput(this).getLines.map(_.toLong).toVector
 
   val part1 = solution(input, 3)
   println(part1)

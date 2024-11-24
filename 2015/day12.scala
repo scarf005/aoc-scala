@@ -20,7 +20,7 @@ def part2(json: ujson.Value): Int = json match
   case _              => 0
 
 @main def main =
-  val input = fromFile(".cache/2015/12.txt").mkString.pipe(ujson.read(_))
+  val input = readInput(this).mkString.pipe(ujson.read(_))
 
   println(part1(input))
   println(part2(input))

@@ -20,7 +20,7 @@ def part2(s: String): Boolean =
   part2Regex.forall(matches)
 
 @main def main() =
-  val input = fromFile(".cache/2015/05.txt").getLines().toVector
+  val input = readInput(this).getLines.toVector
 
   def solve(f: String => Boolean) = input.map(f).count(identity)
 

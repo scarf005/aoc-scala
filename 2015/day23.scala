@@ -55,7 +55,7 @@ class Computer(
 
 @main def main() =
   val instructions =
-    fromFile(".cache/2015/23.txt").getLines.map(Instruction.parse).toVector
+    readInput(this).getLines.map(Instruction.parse).toVector
 
   println(Computer(Map("a" -> 0, "b" -> 0), instructions).run())
   println(Computer(Map("a" -> 1, "b" -> 0), instructions).run())

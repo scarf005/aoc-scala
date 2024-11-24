@@ -27,6 +27,6 @@ def part2(deers: Map[String, Deer], time: Int) =
   points.values.max
 
 @main def main() =
-  val deers = fromFile(".cache/2015/14.txt").getLines.map(parse).toMap
+  val deers = readInput(this).getLines.map(parse).toMap
   println(part1(deers.values, 2503))
   println(part2(deers, 2503))

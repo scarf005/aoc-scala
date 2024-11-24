@@ -23,7 +23,7 @@ def part2(input: Box): Int =
   (input.dimensions.sorted.take(2).sum * 2) + input.dimensions.product
 
 @main def main() =
-  val input = fromFile(".cache/2015/02.txt").getLines.map(Box.parse).toArray
+  val input = readInput(this).getLines.map(Box.parse).toArray
 
   println(input.map(part1).sum)
   println(input.map(part2).sum)

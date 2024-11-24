@@ -84,7 +84,7 @@ def part2(grid: GameOfLifeGrid) =
   solution(grid, _.part2Next)
 
 @main def main() =
-  val raw = fromFile(".cache/2015/18.txt").mkString
+  val raw = readInput(this).mkString
 
   println(part1(GameOfLifeGrid.of(raw)))
   println(part2(GameOfLifeGrid.of(raw)))

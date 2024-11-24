@@ -23,7 +23,7 @@ def part2(xs: Iterable[(Range, Range)]) =
   xs.map { (a, b) => (a intersect b).nonEmpty.toInt }.sum
 
 @main def main() =
-  val input = fromFile(".cache/2022/04.txt").getLines.flatMap(parse).toSeq
+  val input = readInput(this).getLines.flatMap(parse).toSeq
 
   println(part1(input))
   println(part2(input))

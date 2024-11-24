@@ -27,7 +27,7 @@ def part2(s: String) = s.encodedLen - s.size
 
 @main def main() =
   val input =
-    fromFile(".cache/2015/08.txt").getLines.toVector.map(_.trim)
+    readInput(this).getLines.toVector.map(_.trim)
 
   input.map(part1).sum.pipe(println)
   input.map(part2).sum.pipe(println)

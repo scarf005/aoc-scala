@@ -49,7 +49,7 @@ def part2(scores: Score) =
 
 @main def main() =
   val scores: Score =
-    fromFile(".cache/2015/13.txt").getLines.toVector.pipe(parseToScore)
+    readInput(this).getLines.toVector.pipe(parseToScore)
 
   println(part1(scores))
   println(part2(scores))

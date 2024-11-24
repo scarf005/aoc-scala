@@ -105,7 +105,7 @@ def part2(xs: Iterable[Instruction]) =
   import com.sksamuel.scrimage.ImmutableImage
   import com.sksamuel.scrimage.webp.WebpWriter
 
-  val input = fromFile(".cache/2015/06.txt")
+  val input = readInput(this)
     .getLines()
     .flatMap(instruction.parseAll)
     .toVector

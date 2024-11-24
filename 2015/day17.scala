@@ -53,7 +53,7 @@ def part2(target: Int, containers: Seq[Int])(using logger: Logger) =
     .getOrElse(throw new Exception("no match found"))
 
 @main def main() =
-  val containers = fromFile(".cache/2015/17.txt").getLines.map(_.toInt).toSeq
+  val containers = readInput(this).getLines.map(_.toInt).toSeq
   val target = 150
 
   println(part1(target, containers))

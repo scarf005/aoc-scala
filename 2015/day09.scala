@@ -15,7 +15,7 @@ yield Set(from, to) -> score
 
 @main def main() =
   val input =
-    fromFile(".cache/2015/09.txt").getLines
+    readInput(this).getLines
       .map(_.trim) // input lines have trailing whitespaces
       .flatMap(path.parseAll)
       .toVector

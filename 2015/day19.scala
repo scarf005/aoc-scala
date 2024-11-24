@@ -37,7 +37,7 @@ def part2(molecule: String, reqs: Replacements) =
   LazyList.iterate(Vector(molecule))(step).takeWhile(!_.contains("e")).size
 
 @main def main() =
-  val input = fromFile(".cache/2015/19.txt").getLines.toVector
+  val input = readInput(this).getLines.toVector
 
   val molecule = input.last
   val reqs = input

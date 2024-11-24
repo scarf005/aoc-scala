@@ -13,7 +13,7 @@ def solution(input: String)(n: Int) =
   (1 to n).foldLeft(input) { (acc, _) => nextNums(acc) }.length
 
 @main def main() =
-  val input = fromFile(".cache/2015/10.txt").mkString.trim
+  val input = readInput(this).mkString.trim
   val solver = solution(input)
 
   val part1 = solver(40)

@@ -1,6 +1,7 @@
 # [Advent Of Code 2015](https://adventofcode.com/2015) in scala
 
 uses:
+
 - scala3
 - scala-cli
 
@@ -19,6 +20,6 @@ $ scala-cli test .
 
 ## Images
 
-| 2015 Day6 Part 1 | 2015 Day6 Part 2 |
-| :-: | :-: |
+|               2015 Day6 Part 1                |                2015 Day6 Part 2                 |
+| :-------------------------------------------: | :---------------------------------------------: |
 | ![2015 Day6 Part 1](img/2015/day6.part1.webp) | ![2015 Day6 Part 2](./img/2015/day6.part2.webp) |

@@ -23,10 +23,10 @@ val aunt: Parser[Aunt] =
 
 case class Aunt(id: Int, info: Clue):
   def matchEq(known: Clue): Boolean =
-    zipAllByKey(info, known).values.forall { (a, b) => a == b }
+    (info zipByKey known).values.forall { (a, b) => a == b }
 
   def matchRange(known: Clue): Boolean =
-    zipAllByKey(info, known).forall {
+    (info zipByKey known).forall {
       case (k, v) if Set("cats", "trees") contains k           => v._1 > v._2
       case (k, v) if Set("pomeranians", "goldfish") contains k => v._1 < v._2
       case (k, v)                                              => v._1 == v._2

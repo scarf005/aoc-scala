@@ -42,3 +42,5 @@ extension [A](self: A)
     *   value.
     */
   inline def pipe[B](f: A => B): B = f(self)
+
+  inline def |>[B](f: A => B): B = f(self)

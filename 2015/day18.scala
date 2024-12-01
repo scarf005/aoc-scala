@@ -9,7 +9,7 @@ enum Cell:
 
 extension (sc: StringContext)
   def gol(args: Any*): GameOfLifeGrid =
-    sc.s(args*).trim.stripMargin.pipe(GameOfLifeGrid.of)
+    sc.s(args*).trim.stripMargin |> GameOfLifeGrid.of
 
 class GameOfLifeGrid(override val s: Size) extends Grid[Cell](s):
   def apply(buf: Grid[Cell]) =
@@ -35,7 +35,7 @@ class GameOfLifeGrid(override val s: Size) extends Grid[Cell](s):
 
 object GameOfLifeGrid:
   def of(other: String): GameOfLifeGrid =
-    other.split("\n").toVector.pipe(of)
+    other.split("\n").toVector |> of
 
   def of(other: Seq[String]): GameOfLifeGrid =
     val s = Size(other.size, other.head.size)

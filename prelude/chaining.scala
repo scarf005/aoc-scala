@@ -43,4 +43,6 @@ extension [A](self: A)
     */
   inline def pipe[B](f: A => B): B = f(self)
 
+  /** Alias for pipe. Provides F#-style forward pipe operator.
+    */
   inline def |>[B](f: A => B): B = f(self)

@@ -5,14 +5,15 @@ import prelude.*
 def parse(s: String) = s lift { case s"$a   $b" => (a.toInt, b.toInt) }
 
 extension [A](xs: Iterable[A])
-  def counts: Map[A, Int] =
+  def frequencies: Map[A, Int] =
     xs.groupMapReduce(identity)(_ => 1)(_ + _)
 
-def part1(lefts: Vector[Int], rights: Vector[Int]) =
-  (lefts.sorted zip rights.sorted).map((a, b) => (b - a).abs).sum
+def part1(xs: Vector[Int], ys: Vector[Int]) =
+  (xs.sorted zip ys.sorted).sumBy((a, b) => (a - b).abs)
 
-def part2(lefts: Vector[Int], rights: Vector[Int]) =
-  (lefts.counts zipByKey rights.counts).sumBy { case (k, (a, b)) => k * a * b }
+def part2(xs: Vector[Int], ys: Vector[Int]) =
+  (xs.frequencies zipByKey ys.frequencies)
+    .sumBy { case (k, (a, b)) => k * a * b }
 
 @main def main() =
   val (lefts, rights) = readInput(this).getLines.toVector.flatMap(parse).unzip

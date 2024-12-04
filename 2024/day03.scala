@@ -13,7 +13,7 @@ def part1(text: String): Int =
 def part2(text: String): Int = s"(${mul}|${`do`}|${dont})".r
   .findAllMatchIn(text)
   .foldLeft((true, 0)) { case ((on, acc), m) =>
-    m.group(1) match
+    m match
       case mul(a, b) => (on, if on then acc + a.toInt * b.toInt else acc)
       case `do`()    => (true, acc)
       case dont()    => (false, acc)

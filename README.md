@@ -1,4 +1,6 @@
-# [Advent Of Code 2015](https://adventofcode.com/2015) in scala
+# [Advent Of Code](https://adventofcode.com) in scala
+
+![GitHub branch check runs](https://img.shields.io/github/check-runs/scarf005/aoc-scala/main?style=for-the-badge&logo=scala&labelColor=%23DC322F&color=%23EEF5EC)
 
 uses:
 

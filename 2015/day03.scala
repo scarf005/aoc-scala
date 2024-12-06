@@ -3,7 +3,6 @@ package `2015`.day03
 import scala.collection.mutable.HashSet
 
 import prelude.*
-import utils.Pos
 
 def parse(c: Char) = c match
   case '^' => Pos(x = 0, y = 1)

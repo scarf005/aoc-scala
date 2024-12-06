@@ -3,7 +3,6 @@ package `2015`.day06
 import prelude.*
 import prelude.parser.*
 
-import utils.*
 import java.awt.image.BufferedImage
 
 import cats.parse.Parser

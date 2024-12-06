@@ -1,7 +1,6 @@
 package `2024`.day04
 
 import prelude.*
-import utils.Size
 
 extension [A](xss: Seq[Seq[A]])
   def rightDiagonal(size: Int): Iterator[Seq[A]] = for

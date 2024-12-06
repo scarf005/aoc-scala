@@ -4,7 +4,6 @@ import scala.collection.mutable.HashMap
 import prelude.*
 import prelude.parser.*
 import utils.uint.*
-import utils.*
 
 type Wire = String
 type Signal = UInt16

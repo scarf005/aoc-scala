@@ -1,5 +1,6 @@
 package utils
 
+import prelude.{Dir, Pos, Size}
 import scala.reflect.ClassTag
 
 trait GridOps[A: ClassTag]:

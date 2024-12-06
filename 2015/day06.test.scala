@@ -1,7 +1,7 @@
 package `2015`.day06
 
 import munit.FunSuite
-import utils.Pos
+import prelude.Pos
 
 class Day6Tests extends FunSuite:
   test("action"):

@@ -15,3 +15,12 @@ final case class Size(width: Int, height: Int):
 object Size:
   def apply[A](xs: Seq[Seq[A]]): Size = Size(xs(0).size, xs.size)
   def apply[A](xs: Array[Array[A]]): Size = Size(xs(0).size, xs.size)
+
+enum Dir:
+  case Up, Down, Left, Right
+
+  def delta = this match
+    case Up    => Pos(0, -1)
+    case Down  => Pos(0, 1)
+    case Left  => Pos(-1, 0)
+    case Right => Pos(1, 0)

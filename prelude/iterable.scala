@@ -13,4 +13,4 @@ extension [A](xs: IterableOnce[A])
     * items.map(_.length).sum  // 6
     * }}}
     */
-  def sumBy[B >: Int](f: A => B)(using Numeric[B]): B = xs.iterator.map(f).sum
+  inline def sumBy[B >: Int](f: A => B)(using Numeric[B]): B = xs.iterator.map(f).sum

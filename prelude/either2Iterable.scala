@@ -15,5 +15,5 @@ import scala.language.implicitConversions
   * List(success, failure).flatten  // List(42)
   * }}}
   */
-implicit def either2Iterable[A](e: Either[?, A]): Iterable[A] =
+implicit inline def either2Iterable[A](e: Either[?, A]): Iterable[A] =
   e.toOption.toSeq

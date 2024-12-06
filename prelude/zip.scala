@@ -12,7 +12,7 @@ extension [K, A](a: Map[K, A])
     * zipAllByKey(a, b) // Map(1 -> ("one", 1.0), 2 -> ("two", 2.0))
     * }}}
     */
-  infix def zipByKey[B](b: Map[K, B]): Map[K, (A, B)] =
+  infix inline def zipByKey[B](b: Map[K, B]): Map[K, (A, B)] =
     for
       (key, aValue) <- a
       bValue <- b.get(key)

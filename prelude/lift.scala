@@ -33,4 +33,4 @@ extension [A, B](x: (Option[A], Option[B]))
     * (c, d).bisequence              // None
     * }}}
     */
-  def bisequence: Option[(A, B)] = for a <- x._1; b <- x._2 yield (a, b)
+  inline def bisequence: Option[(A, B)] = for a <- x._1; b <- x._2 yield (a, b)

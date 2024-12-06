@@ -8,3 +8,5 @@ hs_err_pid*
 .cache
 .metals
 target
+
+.env*

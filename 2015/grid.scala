@@ -6,15 +6,15 @@ trait GridOps[A: ClassTag]:
   def s: Size
   def raw: Array[A]
 
-  def apply(pos: Point): A
+  def apply(pos: Pos): A
 
-  def update(pos: Point, a: A): Unit
+  def update(pos: Pos, a: A): Unit
 
   override def toString(): String =
     val sb = new StringBuilder
     for y <- 0 until s.height do
       for x <- 0 until s.width do
-        sb.append(apply(Point(y, x)) match
+        sb.append(apply(Pos(y, x)) match
           case null => ' '
           case a    => a.toString.head,
         )
@@ -22,7 +22,7 @@ trait GridOps[A: ClassTag]:
     sb.toString
 
   def data: Array[Array[A]] = raw.grouped(s.width).toArray
-  def get(pos: Point): Option[A] =
+  def get(pos: Pos): Option[A] =
     if pos.y >= 0 && pos.y < s.height && pos.x >= 0 && pos.x < s.width then
       Some(apply(pos))
     else None
@@ -33,13 +33,13 @@ trait GridOps[A: ClassTag]:
     for
       y <- 0 until s.height
       x <- 0 until s.width
-    do g(Point(y, x)) = grid(y)(x)
+    do g(Pos(y, x)) = grid(y)(x)
     g
 
 class Grid[A: ClassTag](val s: Size) extends GridOps[A]:
   val raw = new Array[A](s.width * s.height)
-  def apply(pos: Point): A = raw(pos.y * s.width + pos.x)
-  def update(pos: Point, a: A): Unit = raw(pos.y * s.width + pos.x) = a
+  def apply(pos: Pos): A = raw(pos.y * s.width + pos.x)
+  def update(pos: Pos, a: A): Unit = raw(pos.y * s.width + pos.x) = a
 
   override def equals(that: Any): Boolean = that match
     case that: Grid[?] => this.s == that.s && this.raw.sameElements(that.raw)

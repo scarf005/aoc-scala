@@ -11,7 +11,7 @@ import cats.parse.Parser
 enum Action:
   case On, Off, Toggle
 
-final case class Selection(begin: Point, end: Point)
+final case class Selection(begin: Pos, end: Pos)
 
 final case class Instruction(action: Action, selection: Selection)
 
@@ -27,7 +27,7 @@ class Grid[T](
   def height = underlying.length
   def solution = getSolution(underlying)
   def update(instruction: Instruction): Unit =
-    val Instruction(action, Selection(Point(x1, y1), Point(x2, y2))) =
+    val Instruction(action, Selection(Pos(x1, y1), Pos(x2, y2))) =
       instruction
 
     for
@@ -53,8 +53,8 @@ class Grid[T](
 import cats.parse.Parser.*
 import cats.parse.Rfc5234.{digit, sp}
 
-val coord: Parser[Point] =
-  (number <* char(',')) ~ number map Point.apply
+val coord: Parser[Pos] =
+  (number <* char(',')) ~ number map Pos.apply
 
 val action: Parser[Action] =
   string("turn on").as(Action.On)

@@ -16,17 +16,17 @@ class GameOfLifeGrid(override val s: Size) extends Grid[Cell](s):
     for
       y <- 0 until s.height
       x <- 0 until s.width
-    do this(Point(y, x)) = buf(Point(y, x))
+    do this(Pos(y, x)) = buf(Pos(y, x))
 
-  def neighbors(pos: Point): Int =
+  def neighbors(pos: Pos): Int =
     val coords = for
       dy <- -1 to 1
       dx <- -1 to 1
       if dy != 0 || dx != 0
-    yield pos + Point(dy, dx)
+    yield pos + Pos(dy, dx)
     coords.map(this.get).flatten.count(_ == Cell.On)
 
-  def next(pos: Point): Cell =
+  def next(pos: Pos): Cell =
     val n = neighbors(pos)
     apply(pos) match
       case Cell.On if n == 2 || n == 3 => Cell.On
@@ -43,7 +43,7 @@ object GameOfLifeGrid:
     for
       y <- 0 until s.height
       x <- 0 until s.width
-    do g(Point(y, x)) = if other(y)(x) == '#' then Cell.On else Cell.Off
+    do g(Pos(y, x)) = if other(y)(x) == '#' then Cell.On else Cell.Off
     g
 
 extension (g: GameOfLifeGrid)
@@ -52,15 +52,15 @@ extension (g: GameOfLifeGrid)
     for
       y <- 0 until g.s.height
       x <- 0 until g.s.width
-    do nextGrid(Point(y, x)) = g.next(Point(y, x))
+    do nextGrid(Pos(y, x)) = g.next(Pos(y, x))
     nextGrid
 
   def stuckCorners(): GameOfLifeGrid =
     Set(
-      Point(0, 0),
-      Point(0, g.s.width - 1),
-      Point(g.s.height - 1, 0),
-      Point(g.s.height - 1, g.s.width - 1),
+      Pos(0, 0),
+      Pos(0, g.s.width - 1),
+      Pos(g.s.height - 1, 0),
+      Pos(g.s.height - 1, g.s.width - 1),
     ).foreach { g.update(_, Cell.On) }
     g
 
@@ -70,7 +70,7 @@ extension (g: GameOfLifeGrid)
     for
       y <- 0 until g.s.height
       x <- 0 until g.s.width
-    do nextGrid(Point(y, x)) = g.next(Point(y, x))
+    do nextGrid(Pos(y, x)) = g.next(Pos(y, x))
     nextGrid.stuckCorners()
     nextGrid
 

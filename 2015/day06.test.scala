@@ -1,7 +1,7 @@
 package `2015`.day06
 
 import munit.FunSuite
-import utils.Point
+import utils.Pos
 
 class Day6Tests extends FunSuite:
   test("action"):
@@ -10,18 +10,18 @@ class Day6Tests extends FunSuite:
     assertEquals(action.parse("toggle"), Right(value = ("", Action.Toggle)))
 
   test("coord"):
-    assertEquals(coord.parse("123,456"), Right(value = ("", Point(123, 456))))
+    assertEquals(coord.parse("123,456"), Right(value = ("", Pos(123, 456))))
 
   test("selection"):
     assertEquals(
       selection.parse("0,0 through 999,999"),
-      Right(value = ("", Selection(Point(0, 0), Point(999, 999)))),
+      Right(value = ("", Selection(Pos(0, 0), Pos(999, 999)))),
     )
 
   test("instruction"):
     assertEquals(
       instruction.parse("turn on 0,0 through 999,999"),
       Right(value =
-        ("", Instruction(Action.On, Selection(Point(0, 0), Point(999, 999)))),
+        ("", Instruction(Action.On, Selection(Pos(0, 0), Pos(999, 999)))),
       ),
     )

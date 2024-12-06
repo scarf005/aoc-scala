@@ -11,8 +11,8 @@ extension (d: Dir)
     case Dir.Left  => Dir.Up
     case Dir.Right => Dir.Down
 
-def walk(size: Size, pos: Pos)(walls: Set[Pos]): (Set[(Pos, Dir)], Boolean) =
-  val visited = collection.mutable.Set[(Pos, Dir)]()
+def walk(size: Size, pos: Pos)(walls: Set[Pos]) =
+  val visited = collection.mutable.Set.empty[(Pos, Dir)]
 
   @tailrec def loop(pos: Pos, dir: Dir): Boolean =
     val next = pos + dir.delta
@@ -21,14 +21,14 @@ def walk(size: Size, pos: Pos)(walls: Set[Pos]): (Set[(Pos, Dir)], Boolean) =
     else (if visited.add(next -> dir) then loop(next, dir)
           else true)
 
-  loop(pos, Dir.Up) |> (isLoop => visited.toSet -> isLoop)
+  loop(pos, Dir.Up) |> (isLoop => visited -> isLoop)
 
 def solve(input: String) =
   val grid = input.linesIterator.map(_.toCharArray).toArray
   val size = Size(grid)
   val pos = Pos.apply tupled (input.indexOf('^') moddiv (size.width + 1))
   val walls = (for
-    y <- grid.indices; x <- grid(0).indices;
+    y <- grid.indices; x <- grid(0).indices
     if grid(y)(x) == '#'
   yield Pos(x, y)).toSet
 

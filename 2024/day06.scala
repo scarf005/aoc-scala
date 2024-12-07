@@ -11,17 +11,31 @@ extension (d: Dir)
     case Dir.Left  => Dir.Up
     case Dir.Right => Dir.Down
 
-def walk(size: Size, pos: Pos)(walls: Set[Pos]) =
-  val visited = collection.mutable.Set.empty[(Pos, Dir)]
+case class Context(size: Size, pos: Pos):
+  def walk(walls: Set[Pos]) =
+    val visited = collection.mutable.Set.empty[Pos]
 
-  @tailrec def loop(pos: Pos, dir: Dir): Boolean =
-    val next = pos + dir.delta
-    if !size(next) then false
-    else if walls(next) then loop(pos, dir.rotateRight)
-    else (if visited.add(next -> dir) then loop(next, dir)
-          else true)
+    @tailrec def loop(pos: Pos, dir: Dir): Unit =
+      visited.add(pos)
+      val next = pos + dir.delta
+      if !size(next) then {} else if walls(next) then loop(pos, dir.rotateRight)
+      else loop(next, dir)
 
-  loop(pos, Dir.Up) |> (isLoop => visited -> isLoop)
+    loop(pos, Dir.Up)
+    visited
+
+  def loops(walls: Set[Pos]) =
+    val corners = collection.mutable.Set.empty[(Pos, Dir)]
+
+    @tailrec def loop(pos: Pos, dir: Dir): Boolean =
+      val next = pos + dir.delta
+      if !size(next) then false
+      else if walls(next) then
+        (if corners.add(next -> dir) then loop(pos, dir.rotateRight) else true
+      )
+      else loop(next, dir)
+
+    loop(pos, Dir.Up)
 
 def solve(input: String) =
   val grid = input.linesIterator.map(_.toCharArray).toArray
@@ -32,9 +46,9 @@ def solve(input: String) =
     if grid(y)(x) == '#'
   yield Pos(x, y)).toSet
 
-  val ctx = walk(size, pos)
-  val visited = ctx(walls)._1.map(_._1).toSet
-  val loops = visited.toArray.par.map { p => ctx(walls + p)._2.toInt }.sum
+  val ctx = Context(size, pos)
+  val visited = ctx.walk(walls)
+  val loops = visited.toArray.par.map { p => ctx.loops(walls + p).toInt }.sum
   visited.size -> loops
 
 @main def main() = readInput(this).mkString |> solve |> println

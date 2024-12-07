@@ -10,10 +10,10 @@ type Op = Long => Long => List[Long]
 
 def getCombo(xs: List[Long], next: Op) =
   @tailrec def go(xs: List[Long], acc: List[Long] = List()): List[Long] =
-    xs match
-      case Nil      => acc
-      case x :: Nil => acc.flatMap(next(x))
-      case x :: ys  => go(ys, acc.orEmpty(_.flatMap(next(x)))(List(x)))
+    (xs, acc) match
+      case (Nil, _)       => acc
+      case (y :: ys, Nil) => go(ys, List(y))
+      case (y :: ys, _)   => go(ys, acc.flatMap(next(y)))
   go(xs)
 
 def solve(xss: Vector[(Long, List[Long])], op: Op) =

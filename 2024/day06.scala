@@ -5,35 +5,37 @@ import scala.annotation.tailrec
 import scala.collection.parallel.CollectionConverters.*
 
 extension (d: Dir)
-  def rotateRight = d match
+  def turnRight = d match
     case Dir.Up    => Dir.Right
     case Dir.Down  => Dir.Left
     case Dir.Left  => Dir.Up
     case Dir.Right => Dir.Down
 
-case class Context(size: Size, pos: Pos):
-  def walk(walls: Set[Pos]) =
+case class Context(size: Size, pos: Pos)(walls: Set[Pos]):
+  def at(pos: Pos) = Option.when(size(pos))(walls(pos))
+  def walk =
     val visited = collection.mutable.Set.empty[Pos]
 
     @tailrec def loop(pos: Pos, dir: Dir): Unit =
       visited.add(pos)
       val next = pos + dir.delta
-      if !size(next) then {} else if walls(next) then loop(pos, dir.rotateRight)
-      else loop(next, dir)
+      at(next) match
+        case None       => {}
+        case Some(true) => loop(pos, dir.turnRight)
+        case Some(_)    => loop(next, dir)
 
-    loop(pos, Dir.Up)
-    visited
+    loop(pos, Dir.Up); visited
 
-  def loops(walls: Set[Pos]) =
+  def loops =
     val corners = collection.mutable.Set.empty[(Pos, Dir)]
 
     @tailrec def loop(pos: Pos, dir: Dir): Boolean =
       val next = pos + dir.delta
-      if !size(next) then false
-      else if walls(next) then
-        (if corners.add(next -> dir) then loop(pos, dir.rotateRight) else true
-      )
-      else loop(next, dir)
+      at(next) match
+        case None => false
+        case Some(true) =>
+          (if corners.add(next -> dir) then loop(pos, dir.turnRight) else true)
+        case Some(_) => loop(next, dir)
 
     loop(pos, Dir.Up)
 
@@ -47,8 +49,8 @@ def solve(input: String) =
   yield Pos(x, y)).toSet
 
   val ctx = Context(size, pos)
-  val visited = ctx.walk(walls)
-  val loops = visited.toArray.par.map { p => ctx.loops(walls + p).toInt }.sum
+  val visited = ctx(walls).walk
+  val loops = visited.toArray.par.map { p => ctx(walls + p).loops.toInt }.sum
   visited.size -> loops
 
 @main def main() = readInput(this).mkString |> solve |> println

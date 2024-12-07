@@ -1,5 +1,8 @@
 package prelude
 
+def digits(x: Int) = math.log10(x.toDouble).toInt + 1
+def digits(x: Long) = math.log10(x.toDouble).toInt + 1
+
 extension (n: Int)
   inline infix def divmod(d: Int) = (n / d, n % d)
   inline infix def moddiv(d: Int) = (n % d, n / d)

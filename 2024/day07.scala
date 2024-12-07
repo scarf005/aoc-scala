@@ -3,13 +3,8 @@ package `2024`.day07
 import prelude.*
 import scala.annotation.tailrec
 
-def digits(x: Long) = math.log10(x.toDouble).toInt + 1
-
 extension (a: Long)
   inline def ||(b: Long) = (a * math.pow(10, digits(b)) + b).toLong
-
-extension [C <: Iterable, A](xs: C[A])
-  def orEmpty[B](f: C[A] => B)(els: => B) = if (xs.isEmpty) els else f(xs)
 
 type Op = Long => Long => List[Long]
 

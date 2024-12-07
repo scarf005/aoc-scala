@@ -4,7 +4,7 @@ import prelude.*
 import scala.annotation.tailrec
 
 extension (a: Long)
-  inline def ||(b: Long) = (a * math.pow(10, digits(b)) + b).toLong
+  inline def ||(b: Long) = (a * math.pow(10, b.digits)).toLong + b
 
 type Op = Long => Long => List[Long]
 

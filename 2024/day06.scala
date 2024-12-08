@@ -4,13 +4,6 @@ import prelude.*
 import scala.annotation.tailrec
 import scala.collection.parallel.CollectionConverters.*
 
-extension (d: Dir)
-  def turnRight = d match
-    case Dir.Up    => Dir.Right
-    case Dir.Down  => Dir.Left
-    case Dir.Left  => Dir.Up
-    case Dir.Right => Dir.Down
-
 case class Context(size: Size, pos: Pos)(walls: Set[Pos]):
   def at(pos: Pos) = Option.when(size(pos))(walls(pos))
   def walk =

@@ -7,9 +7,14 @@ extension (n: Int)
   inline infix def moddiv(d: Int) = (n % d, n / d)
 
 final case class Pos(x: Int, y: Int):
-  def +(p: Pos) = Pos(x + p.x, y + p.y)
-  def -(p: Pos) = Pos(x - p.x, y - p.y)
-  def *(n: Int) = Pos(x * n, y * n)
+  inline def +(p: Pos) = Pos(x + p.x, y + p.y)
+  inline def -(p: Pos) = Pos(x - p.x, y - p.y)
+  inline def *(n: Int) = Pos(x * n, y * n)
+  inline infix def manhattan(p: Pos): Int = (x - p.x).abs + (y - p.y).abs
+  inline def manhattan: Int = manhattan(Pos.zero)
+
+object Pos:
+  val zero = Pos(0, 0)
 
 final case class Size(width: Int, height: Int):
   inline def contains(p: Pos) =
@@ -28,3 +33,15 @@ enum Dir:
     case Down  => Pos(0, 1)
     case Left  => Pos(-1, 0)
     case Right => Pos(1, 0)
+
+  def turnRight = this match
+    case Dir.Up    => Dir.Right
+    case Dir.Down  => Dir.Left
+    case Dir.Left  => Dir.Up
+    case Dir.Right => Dir.Down
+
+  def turnLeft = this match
+    case Dir.Up    => Dir.Left
+    case Dir.Down  => Dir.Right
+    case Dir.Left  => Dir.Down
+    case Dir.Right => Dir.Up

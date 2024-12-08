@@ -1,5 +1,7 @@
 package prelude
 
+import scala.annotation.targetName
+
 extension [A](xs: IterableOnce[A])
   /** Maps elements to numeric values and sums them.
     *
@@ -22,3 +24,17 @@ extension [C <: Iterable, A](xs: C[A])
     */
   inline def orEmpty[B](f: C[A] => B)(default: => B) =
     if (xs.isEmpty) default else f(xs)
+
+extension [A](x: Seq[A])
+  def combinationsRepeating(n: Int): Iterator[Seq[A]] =
+    x.zipWithIndex.combinations(n).map(_.map(_._1))
+
+  @targetName("combinations2")
+  inline def combinationsN(n: 2): Iterator[(A, A)] =
+    x.combinationsRepeating(n).map { case Seq(a, b) => (a, b) }
+  @targetName("combinations3")
+  inline def combinationsN(n: 3): Iterator[(A, A, A)] =
+    x.combinationsRepeating(n).map { case Seq(a, b, c) => (a, b, c) }
+  @targetName("combinations4")
+  inline def combinationsN(n: 4): Iterator[(A, A, A, A)] =
+    x.combinationsRepeating(n).map { case Seq(a, b, c, d) => (a, b, c, d) }

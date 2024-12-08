@@ -10,10 +10,6 @@ inline given [A]: Pretty[IterableOnce[A]] with
   extension (x: IterableOnce[A])
     inline def pretty = x.iterator.mkString("[", ", ", "]")
 
-extension [A](x: Iterable[A])
-  def combinationsRepeating(n: Int): Iterator[Seq[A]] =
-    x.zipWithIndex.toSeq.combinations(n).map(_.map(_._1))
-
 trait Logger:
   def log(msg: => Any): Unit
 

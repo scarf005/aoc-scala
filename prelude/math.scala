@@ -8,6 +8,8 @@ extension (n: Int)
 
 final case class Pos(x: Int, y: Int):
   def +(p: Pos) = Pos(x + p.x, y + p.y)
+  def -(p: Pos) = Pos(x - p.x, y - p.y)
+  def *(n: Int) = Pos(x * n, y * n)
 
 final case class Size(width: Int, height: Int):
   inline def contains(p: Pos) =

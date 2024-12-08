@@ -19,10 +19,15 @@ def getCombo(xs: List[Long], next: Op) =
 def solve(xss: Vector[(Long, List[Long])], op: Op) =
   xss.filter((target, xs) => getCombo(xs, op).exists(_ == target)).map(_._1).sum
 
-@main def main() =
-  val input = readInput(this).getLines.collect { case s"$target: $xs" =>
-    (target.toLong, xs.split(" ").map(_.toLong).toList)
-  }.toVector
+def parse(input: String) = input.linesIterator.collect { case s"$target: $xs" =>
+  (target.toLong, xs.split(" ").map(_.toLong).toList)
+}.toVector
 
-  println(solve(input, (x) => (a) => List(a + x, a * x)))
-  println(solve(input, (x) => (a) => List(a + x, a * x, a || x)))
+def part1(y: Long)(x: Long) = List(x + y, x * y)
+def part2(y: Long)(x: Long) = List(x + y, x * y, x || y)
+
+@main def main() =
+  val input = readInput(this).mkString |> parse
+
+  println(solve(input, part1))
+  println(solve(input, part2))

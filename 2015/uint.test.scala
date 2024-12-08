@@ -15,4 +15,3 @@ class UInt16Tests extends FunSuite:
     assertEquals(UInt16(456) >> UInt16(2), UInt16(114))
     assertEquals(~UInt16(123), UInt16(65412))
     assertEquals(~UInt16(456), UInt16(65079))
-  

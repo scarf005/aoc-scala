@@ -38,3 +38,21 @@ extension [A](x: Seq[A])
   @targetName("combinations4")
   inline def combinationsN(n: 4): Iterator[(A, A, A, A)] =
     x.combinationsRepeating(n).map { case Seq(a, b, c, d) => (a, b, c, d) }
+
+extension [A](it: Iterator[A])
+  /** Takes longest prefix of elements that does not satisfy a predicate.
+    * $orderDependent
+    * @param p
+    *   The predicate used to test elements.
+    * @return
+    *   the longest prefix of this $coll whose elements all do not satisfy the
+    *   predicate `p`.
+    */
+  def takeUntil(p: A => Boolean): Iterator[A] =
+    new Iterator[A]:
+      private var done = false
+      def hasNext = !done && it.hasNext
+      def next() =
+        val x = it.next()
+        if p(x) then done = true
+        x

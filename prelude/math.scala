@@ -12,6 +12,8 @@ final case class Pos(x: Int, y: Int):
   inline def *(n: Int) = Pos(x * n, y * n)
   inline infix def manhattan(p: Pos): Int = (x - p.x).abs + (y - p.y).abs
   inline def manhattan: Int = manhattan(Pos.zero)
+  def neighbours =
+    Vector(Pos(x - 1, y), Pos(x + 1, y), Pos(x, y - 1), Pos(x, y + 1))
 
 object Pos:
   val zero = Pos(0, 0)

@@ -56,3 +56,9 @@ extension [A](it: Iterator[A])
         val x = it.next()
         if p(x) then done = true
         x
+
+extension [A](xs: Iterable[A])
+  def frequencies: Map[A, Int] =
+    xs.groupMapReduce(identity)(_ => 1)(_ + _)
+  def frequenciesL: Map[A, Long] =
+    xs.groupMapReduce(identity)(_ => 1L)(_ + _)

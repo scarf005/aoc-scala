@@ -9,19 +9,15 @@ lazy val next: Long => List[Long] = memoize {
   case i                    => List(i * 2024)
 }
 
-inline def steps(m: Map[Long, Long], n: Long) =
-  @tailrec def go(m: Map[Long, Long], n: Long): Map[Long, Long] =
-    if n == 0 then m
-    else {
-      val nextM = m.view
-        .flatMap { (k, count) => next(k).map(_ -> count) }
-        .groupMapReduce(_._1)(_._2)(_ + _)
-      go(nextM, n - 1)
-    }
+type Stones = Map[Long, Long]
 
-  go(m, n)
-
-inline def solve(input: Map[Long, Long])(n: Long) = steps(input, n)
+@tailrec def steps(m: Stones, n: Long): Stones =
+  if n == 0 then m
+  else
+    val nextM = m.view
+      .flatMap { (k, count) => next(k).map(_ -> count) }
+      .groupMapReduce(_._1)(_._2)(_ + _)
+    steps(nextM, n - 1)
 
 @main def main() =
   val input = readInput(this).mkString.trim.split(" ").map(_.toLong).toList

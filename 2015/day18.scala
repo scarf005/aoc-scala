@@ -11,8 +11,8 @@ extension (sc: StringContext)
   def gol(args: Any*): GameOfLifeGrid =
     sc.s(args*).trim.stripMargin |> GameOfLifeGrid.of
 
-class GameOfLifeGrid(override val s: Size) extends Grid[Cell](s):
-  def apply(buf: Grid[Cell]) =
+class GameOfLifeGrid(override val s: Size) extends utils.Grid[Cell](s):
+  def apply(buf: utils.Grid[Cell]) =
     for
       y <- 0 until s.height
       x <- 0 until s.width

@@ -67,7 +67,7 @@ val instruction: Parser[Instruction] =
   action ~ selection.surroundedBy(sp.rep0) map Instruction.apply
 
 def part1(xs: Iterable[Instruction]) =
-  Grid[Boolean](
+  new Grid[Boolean](
     Array.fill(1000, 1000)(false),
     updatePixel = (action, prev) => {
       action match
@@ -82,7 +82,7 @@ def part1(xs: Iterable[Instruction]) =
   ).tap { g => xs.foreach(g.update) }
 
 def part2(xs: Iterable[Instruction]) =
-  Grid[Int](
+  new Grid[Int](
     Array.fill(1000, 1000)(0),
     updatePixel = (action, prev) =>
       action match {

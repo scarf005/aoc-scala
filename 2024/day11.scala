@@ -3,10 +3,6 @@ package `2024`.day11
 import prelude.*
 import scala.annotation.tailrec
 
-def memoize[A, B](f: A => B): A => B =
-  val cache = collection.mutable.HashMap.empty[A, B]
-  a => cache.getOrElseUpdate(a, f(a))
-
 lazy val next: Long => List[Long] = memoize {
   case 0                    => List(1)
   case i if i.digits.isEven => (i divmod (10 ** (i.digits / 2))).toList

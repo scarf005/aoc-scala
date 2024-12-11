@@ -5,6 +5,16 @@ extension (n: Long) def digits: Int = math.log10(n.toDouble).toInt + 1
 extension (n: Int)
   inline infix def divmod(d: Int) = (n / d, n % d)
   inline infix def moddiv(d: Int) = (n % d, n / d)
+  inline infix def isOdd = n % 2 == 1
+  inline infix def isEven = n % 2 == 0
+  inline def **(exp: Int) = math.pow(n, exp).toInt
+
+extension (n: Long)
+  inline infix def divmod(d: Long) = (n / d, n % d)
+  inline infix def moddiv(d: Long) = (n % d, n / d)
+  inline infix def isOdd = n % 2 == 1
+  inline infix def isEven = n % 2 == 0
+  inline def **(exp: Long) = math.pow(n.toDouble, exp.toDouble).toLong
 
 final case class Pos(x: Int, y: Int):
   inline def +(p: Pos) = Pos(x + p.x, y + p.y)

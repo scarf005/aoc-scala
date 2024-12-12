@@ -3,7 +3,7 @@ package `2024`.day11
 import prelude.*
 import scala.annotation.tailrec
 
-lazy val next: Long => List[Long] = memoize {
+val next: Long => List[Long] = {
   case 0                    => List(1)
   case i if i.digits.isEven => (i divmod (10 ** (i.digits / 2))).toList
   case i                    => List(i * 2024)
@@ -23,14 +23,13 @@ type Stones = Map[Long, Long]
   val input = readInput(this).mkString.trim.split(" ").map(_.toLong).toList
   val stones = input.frequenciesL
 
+  val part1 = steps(stones, 25)
   time {
-    val part1 = steps(stones, 25)
     println(part1.values.sum)
     println(part1.size)
   }
-
   time {
-    val part2 = steps(stones, 75)
+    val part2 = steps(part1, 50)
     println(part2.values.sum)
     println(part2.size)
   }

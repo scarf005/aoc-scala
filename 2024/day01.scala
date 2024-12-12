@@ -4,10 +4,6 @@ import prelude.*
 
 def parse(s: String) = s lift { case s"$a   $b" => (a.toInt, b.toInt) }
 
-extension [A](xs: Iterable[A])
-  def frequencies: Map[A, Int] =
-    xs.groupMapReduce(identity)(_ => 1)(_ + _)
-
 def part1(xs: Vector[Int], ys: Vector[Int]) =
   (xs.sorted zip ys.sorted).sumBy((a, b) => (a - b).abs)
 

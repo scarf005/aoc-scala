@@ -3,11 +3,10 @@ package `2024`.day11
 import prelude.*
 import scala.annotation.tailrec
 
-val next: Long => List[Long] = {
+def next(n: Long): List[Long] = n match
   case 0                    => List(1)
   case i if i.digits.isEven => (i divmod (10 ** (i.digits / 2))).toList
   case i                    => List(i * 2024)
-}
 
 type Stones = Map[Long, Long]
 
@@ -24,12 +23,11 @@ type Stones = Map[Long, Long]
   val stones = input.frequenciesL
 
   val part1 = steps(stones, 25)
-  time {
+  time:
     println(part1.values.sum)
     println(part1.size)
-  }
-  time {
+
+  time:
     val part2 = steps(part1, 50)
     println(part2.values.sum)
     println(part2.size)
-  }

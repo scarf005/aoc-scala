@@ -2,6 +2,7 @@ package `2024`.day14
 
 import prelude.*
 import java.awt.image.BufferedImage
+import java.awt.Color.{BLACK, WHITE}
 import com.sksamuel.scrimage.ImmutableImage
 import com.sksamuel.scrimage.webp.WebpWriter
 
@@ -41,16 +42,14 @@ def quadrant(p: Pos)(using size: Size): Option[Quadrant] =
     case (1, -1)  => Some(Quadrant.IV)
     case _        => None
 
-def asImage(xs: Set[Pos])(using size: Size) =
+def toBufferedImage(xs: Set[Pos])(using size: Size) =
   val image = BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB)
   val g = image.createGraphics()
   for
     x <- 0 until size.width
     y <- 0 until size.height
   do
-    g.setColor(
-      if xs(Pos(x, y)) then java.awt.Color.BLACK else java.awt.Color.WHITE,
-    )
+    g.setColor(if xs(Pos(x, y)) then BLACK else WHITE)
     g.fillRect(x, y, 1, 1)
   g.dispose()
 
@@ -67,7 +66,7 @@ def part2(input: String) =
     val pos = robots.map(_.at(t)).toSet
 
     ImmutableImage
-      .fromAwt(asImage(pos))
+      .fromAwt(toBufferedImage(pos))
       .output(
         WebpWriter.MAX_LOSSLESS_COMPRESSION,
         f"img/2024/14/$t%05d.webp",

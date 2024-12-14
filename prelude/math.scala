@@ -1,5 +1,7 @@
 package prelude
 
+import prelude.Pos.northEast
+
 extension (n: Long) def digits: Int = math.log10(n.toDouble).toInt + 1
 
 extension (n: Int)
@@ -22,11 +24,43 @@ final case class Pos(x: Int, y: Int):
   inline def *(n: Int) = Pos(x * n, y * n)
   inline infix def manhattan(p: Pos): Int = (x - p.x).abs + (y - p.y).abs
   inline def manhattan: Int = manhattan(Pos.zero)
-  def neighbours =
-    Vector(Pos(x - 1, y), Pos(x + 1, y), Pos(x, y - 1), Pos(x, y + 1))
+  def neighbours = Seq(up, down, left, right)
+  def diagonals = Seq(northEast, northWest, southEast, southWest)
+  def neighbours8 = Seq(nw, w, sw, n, s, ne, e, se)
+
+  def nw = northWest
+  def w = left
+  def sw = southWest
+  def n = up
+  def s = down
+  def ne = northEast
+  def e = right
+  def se = southEast
+
+  def up = this + Pos.up
+  def down = this + Pos.down
+  def left = this + Pos.left
+  def right = this + Pos.right
+  def northEast = this + Pos.northEast
+  def northWest = this + Pos.northWest
+  def southEast = this + Pos.southEast
+  def southWest = this + Pos.southWest
+  def `3x3`: Seq[Seq[Pos]] = Seq(
+    Seq(northWest, up, northEast),
+    Seq(left, this, right),
+    Seq(southWest, down, southEast),
+  )
 
 object Pos:
   val zero = Pos(0, 0)
+  val up = Pos(0, -1)
+  val down = Pos(0, 1)
+  val left = Pos(-1, 0)
+  val right = Pos(1, 0)
+  val northEast = Pos(1, -1)
+  val northWest = Pos(-1, -1)
+  val southEast = Pos(1, 1)
+  val southWest = Pos(-1, 1)
 
 final case class Size(width: Int, height: Int):
   inline def contains(p: Pos) =
@@ -41,10 +75,10 @@ enum Dir:
   case Up, Down, Left, Right
 
   def delta = this match
-    case Up    => Pos(0, -1)
-    case Down  => Pos(0, 1)
-    case Left  => Pos(-1, 0)
-    case Right => Pos(1, 0)
+    case Dir.Up    => Pos.up
+    case Dir.Down  => Pos.down
+    case Dir.Left  => Pos.left
+    case Dir.Right => Pos.right
 
   def turnRight = this match
     case Dir.Up    => Dir.Right

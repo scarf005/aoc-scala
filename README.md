@@ -22,6 +22,8 @@ $ scala-cli test .
 
 ## Images
 
-|               2015 Day6 Part 1                |                2015 Day6 Part 2                 |
-| :-------------------------------------------: | :---------------------------------------------: |
-| ![2015 Day6 Part 1](img/2015/day6.part1.webp) | ![2015 Day6 Part 2](./img/2015/day6.part2.webp) |
+|           2015 Day6 Part 1            |           2015 Day6 Part 2           |
+| :-----------------------------------: | :----------------------------------: |
+| <img width="100%" src="img/2015/day6.part1.webp">  | <img width="100%" src="img/2015/day6.part2.webp"> |
+|         **2024 Day14 part 2**         |                                      |
+| <img width="100%" src="img/2024/day14.part2.webp"> |                                      |

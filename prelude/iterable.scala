@@ -1,6 +1,7 @@
 package prelude
 
 import scala.annotation.targetName
+import scala.collection.generic.IsSeq
 
 extension [A](xs: IterableOnce[A])
   /** Maps elements to numeric values and sums them.
@@ -62,3 +63,10 @@ extension [A](xs: Iterable[A])
     xs.groupMapReduce(identity)(_ => 1)(_ + _)
   def frequenciesL: Map[A, Long] =
     xs.groupMapReduce(identity)(_ => 1L)(_ + _)
+
+extension [C](c: C)(using isSeq: IsSeq[C])
+  def dropBothWhile(p: isSeq.A => Boolean): isSeq.C =
+    val xs = isSeq(c)
+    val leftIndex = xs.indexWhere(!p(_))
+    val rightIndex = xs.lastIndexWhere(!p(_))
+    xs.slice(leftIndex, rightIndex + 1)

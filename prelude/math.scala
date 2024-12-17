@@ -91,3 +91,6 @@ enum Dir:
     case Dir.Down  => Dir.Right
     case Dir.Left  => Dir.Down
     case Dir.Right => Dir.Up
+
+object I:
+  def unapply(s: String): Option[Int] = s.toIntOption

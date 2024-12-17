@@ -20,9 +20,6 @@ case class Robot(p: Pos, v: Pos):
     }
     Pos(x, y)
 
-object I:
-  def unapply(s: String): Option[Int] = s.toIntOption
-
 def parse(input: String) =
   input
     .split("\n")

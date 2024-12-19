@@ -13,6 +13,7 @@ def dedentImpl(input: String) =
 
   lines.map(_.drop(minIndent)).mkString("\n")
 
-extension (sc: StringContext) def d(args: Any*): String = dedentImpl(sc.s(args*))
+extension (sc: StringContext)
+  def d(args: Any*): String = dedentImpl(sc.s(args*))
 
 extension (string: String) def dedent: String = dedentImpl(string)

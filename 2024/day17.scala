@@ -5,9 +5,6 @@ import scala.collection.immutable.Queue
 
 enum Code:
   case Adv, Bxl, Bst, Jnz, Bxc, Out, Bdv, Cdv
-object Code:
-  val ops = Vector(Adv, Bxl, Bst, Jnz, Bxc, Out, Bdv, Cdv)
-  def parse(c: Int): Code = ops(c)
 
 enum Reg(val v: Int):
   case A extends Reg(0)
@@ -77,7 +74,7 @@ def parse(input: String): Vector[(Code, Int)] = input
   .split(",")
   .map(_.toInt)
   .grouped(2)
-  .collect { case Array(c, o) => (Code.parse(c), o) }
+  .collect { case Array(c, o) => (Code.fromOrdinal(c), o) }
   .toVector
 
 @main def main() =

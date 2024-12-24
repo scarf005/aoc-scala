@@ -5,7 +5,6 @@ import scala.collection.parallel.CollectionConverters.*
 import scala.collection.immutable.Range.Inclusive
 import prelude.time
 
-extension [A](x: A) inline def tap[B](f: A => B): A = { f(x); x }
 extension (x: Int) inline def ±(y: Int) = x - y to x + y
 extension (x: Inclusive)
   inline def &(y: Inclusive) = (x.start max y.start) to (x.end min y.end)
@@ -28,48 +27,46 @@ object Pos:
     inline def +(q: Pos): Pos = (p.x + q.x, p.y + q.y)
     inline infix def taxiDist(q: Pos) = (p.x - q.x).abs + (p.y - q.y).abs
 
-def entries(input: String): Iterator[(Char, Pos)] = for
-  (line, y) <- input.linesIterator.zipWithIndex
-  (c, x) <- line.iterator.zipWithIndex
-yield c -> Pos(x, y)
+case class Rect(x: Inclusive, y: Inclusive):
+  inline def &(that: Rect) = Rect(x & that.x, y & that.y)
 
-case class Size(width: Int, height: Int):
-  val widthRange = 0 to width - 1
-  val heightRange = 0 to height - 1
+  def iterator: Iterator[Pos] = for
+    y <- y.iterator
+    x <- x.iterator
+  yield Pos(x, y)
 
 object Track:
   def parse(input: String) =
-    val lines = input.split('\n')
-    val size = Size(lines.head.size, lines.size)
-    entries(input).foldLeft(Track(Pos.zero, Pos.zero, Set.empty, size)) {
-      case (track, (c, p)) =>
-        c match
-          case 'S' => track.copy(start = p)
-          case 'E' => track.copy(end = p)
-          case '#' => track.copy(walls = track.walls + p)
-          case _   => track
+    val lines = input.trim.split('\n')
+    val bounds = Rect(0 to lines.head.size - 1, 0 to lines.size - 1)
+    val track = Track(Pos.zero, Pos.zero, Set.empty, bounds)
+    bounds.iterator.foldLeft(track) { (track, p) =>
+      lines(p.y)(p.x) match
+        case 'S' => track.copy(start = p)
+        case 'E' => track.copy(end = p)
+        case '#' => track.copy(walls = track.walls + p)
+        case _   => track
     }
 
-case class Track(start: Pos, end: Pos, walls: Set[Pos], bounds: Size):
+case class Track(start: Pos, end: Pos, walls: Set[Pos], bounds: Rect):
   lazy val path: Vector[Pos] =
-    val visited = collection.mutable.Set(start)
-    inline def canMove(p: Pos) = !walls.contains(p) && !visited.contains(p)
+    inline def canMove(prev: List[Pos])(p: Pos) =
+      !walls.contains(p) && Some(p) != prev.headOption
 
-    @tailrec def go(xs: List[Pos]): List[Pos] = xs.head match
-      case p if p == end => xs
-      case p => go(p.neighbors.filter(canMove).tap(visited ++= _).head :: xs)
+    @tailrec def go(xs: List[Pos]): List[Pos] = xs match
+      case Nil                => Nil
+      case p :: _ if p == end => xs
+      case p :: ys            => go(p.neighbors.filter(canMove(ys)) ++ xs)
 
     go(List(start)).reverseIterator.toVector
 
   lazy val zipped = path.zipWithIndex
   lazy val pathMap = zipped.toMap
 
-  def cheatedPaths(maxDistance: Int) =
-    def radius(p: Pos) = for
-      x <- ((p.x ± maxDistance) & bounds.widthRange).iterator
-      y <- ((p.y ± maxDistance) & bounds.heightRange).iterator
-      pos = Pos(x, y) if (pos taxiDist p) <= maxDistance
-    yield pos
+  def cheatedPaths(maxDist: Int) =
+    def radius(p: Pos) =
+      (Rect(p.x ± maxDist, p.y ± maxDist) & bounds).iterator
+        .filter(p.taxiDist(_) <= maxDist)
 
     zipped.par.map { (p, i) =>
       radius(p)
